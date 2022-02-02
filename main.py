@@ -1,6 +1,10 @@
 import requests
 import json
 import argparse as ap
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # proxies = {
 #   "http": "http://127.0.0.1:8080",
@@ -64,13 +68,20 @@ def get_members_repos(token,org):
 
 if __name__=='__main__':
 
+
+
 	parser = ap.ArgumentParser()
 	parser.add_argument('-t','--token', help="Token de acesso à API do github, com permissões de acesso à ORG pesquisada.", required=True)
 	parser.add_argument('-o','--org',help="Nome de organização no github",required=True)
 	args = parser.parse_args()
 
-	members_repos_dict = get_members_repos(args.token,args.org)
-	org_repos = get_org_repo_names(args.token,args.org)
+	token = args.token
+	
+	#for local tests
+	token = os.getenv("GITHUB_TOKEN")
+
+	members_repos_dict = get_members_repos(token,args.org)
+	org_repos = get_org_repo_names(token,args.org)
 
 	# A intersecção tem o problema de ignorar quando mais de um user tem o repo da org. 
 	# print(set(org_repos).intersection(members_repos))
