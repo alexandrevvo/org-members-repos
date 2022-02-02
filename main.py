@@ -76,9 +76,9 @@ if __name__=='__main__':
 	args = parser.parse_args()
 
 	token = args.token
-	
+
 	#for local tests
-	token = os.getenv("GITHUB_TOKEN")
+	#token = os.getenv("GITHUB_TOKEN")
 
 	members_repos_dict = get_members_repos(token,args.org)
 	org_repos = get_org_repo_names(token,args.org)
